@@ -4,5 +4,7 @@
 
 ## Install
 - Clone the repo
-- Install dependencies ```bower install```
+- Install dependencies:
+  - ```npm install```
+  - ```bower install```
 - Run gulp ```gulp serve```
