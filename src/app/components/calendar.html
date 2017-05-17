@@ -1,4 +1,9 @@
 <div ng-repeat="month in $ctrl.array"><h3>{{month.title}}</h3>
+  <div class="row dayOfTheWeek">
+    <div class="col-md-2 col-md-2 fixed-size-square" ng-repeat="dayName in $ctrl.daysOfTheWeek">
+      {{dayName.name}}
+    </div>
+  </div>
   <div ng-repeat="day in month.days" >
     <div ng-class="{row:!(($index+1) % 7)}">
       <div class="col-md-2 col-md-2 fixed-size-square {{day.class}}">

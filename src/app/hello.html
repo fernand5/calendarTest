@@ -1,13 +1,13 @@
-<!--<div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>-->
-<h4>Select the date</h4>
-<input type="date" ng-model="$ctrl.dateFrom" ng-change="$ctrl.dateChange()"/>
-{{$ctrl.dateFrom | date:'yyyy-MM-dd'}}
-<h4>Days quantity</h4>
-<input type="number" ng-model="$ctrl.quantityDays" />
-<h4>Country code</h4>
-<input type="text" ng-model="$ctrl.countryCode" />
-<br>
-<br>
-<button ng-click="$ctrl.process()">Submit</button>
-<!--<div ng-if="holidays">hola</div>-->
-<calendar-component ng-show="$ctrl.showCalendar" array="$ctrl.array" holidays="holidays" months="elloe" ></calendar-component>
+<div class="container">
+  <h4>Select the date</h4>
+  <input type="date" ng-model="$ctrl.dateFrom" ng-change="$ctrl.dateChange()"/>
+  <h4>Days quantity</h4>
+  <input type="number" ng-model="$ctrl.quantityDays" />
+  <h4>Country code</h4>
+  <input type="text" ng-model="$ctrl.countryCode" />
+  <br>
+  <br>
+  <button ng-click="$ctrl.process()">Submit</button>
+  <!--<div ng-if="holidays">hola</div>-->
+  <calendar-component ng-show="$ctrl.showCalendar" array="$ctrl.array" holidays="holidays" months="elloe" ></calendar-component>
+</div>
