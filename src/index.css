@@ -1,3 +1,29 @@
-body {
-  background-color: lightgrey;
+.fixed-size-square {
+  display: inline-table;
+  width: 50px;
+  height: 50px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  background: #4679BD;
+}
+.fixed-size-square span {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  color: white
+}
+.weekend{
+  background: yellow !important;
+}
+.weekday{
+  background: green !important;
+}
+.holiday{
+  background: orange !important;
+}
+.invalid-days{
+  background: grey !important;
+}
+.invalid-days span{
+  color: grey !important;
 }
