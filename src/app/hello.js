@@ -13,7 +13,7 @@ function HelloController($http, $compile, holydayService, $scope, $q, $resource)
   console.log(vm.array);
   vm.showCalendar = false;
   vm.dateFrom = new Date();
-  $scope.holidays = null;
+  vm.holidays = null;
 
   vm.quantityDays = 0;
   vm.countryCode = 'US';
@@ -39,29 +39,50 @@ function HelloController($http, $compile, holydayService, $scope, $q, $resource)
         vm.tmpDays.push({'class': 'invalid-days', 'number': '0'});
       }
     }
+
+    var User = $resource('https://holidayapi.com/v1/holidays');
+
+    var promise=User.get({
+      year: originalDate.getFullYear(),
+      country: vm.countryCode,
+      key: '12ed68aa-eebb-4c0b-a37b-6d3202de35ef'
+    }).$promise.then(
+      function (data) {
+        return data;
+      },
+      function (reason) {
+        return reason;
+      });
+
+    vm.holidays=promise.then(function(response) {
+
+      vm.holidays=response.holidays;
+
+
+
     for (i = 1; i <= vm.quantityDays; i++) {
 
-      var User = $resource('https://holidayapi.com/v1/holidays');
+      var month=(originalDate.getMonth()+1);
+      // if(month)
 
-      User.get({
-        year: 2017,
-        country: 'US',
-        key: '12ed68aa-eebb-4c0b-a37b-6d3202de35ef',
-        day: originalDate.getDate()
-        , month: originalDate.getMonth() + 1
-      }).$promise.then(
-        function (data) {
-          $scope.holidays = data;
-        },
-        function (reason) {
-          $scope.holidays = [];
-        });
 
-      console.log("USER");
-      console.log($scope.holidays);
+      var dateToSearch=originalDate.getFullYear()+'-'+("0" + (originalDate.getMonth() + 1)).slice(-2)+'-'+("0" + originalDate.getDate()).slice(-2);
+      console.log(dateToSearch);
+      // console.log(vm.holidays[dateToSearch]);
+
+
+
 
       if ((new Date(originalDate.getFullYear(), originalDate.getMonth() + 1, 0).getDate()) == (originalDate.getDate())) {
-        if (vm.dateFrom.getDay() == 0) {
+        if(vm.holidays.hasOwnProperty(dateToSearch)) {
+          vm.tmpDays.push({
+            'class': 'holiday',
+            'number': originalDate.getDate(),
+            'month': originalDate.getMonth() + 1,
+            'year': originalDate.getFullYear()
+          });
+        }
+        else if (vm.dateFrom.getDay() == 0) {
           vm.tmpDays.push({
             'class': 'weekend',
             'number': originalDate.getDate(),
@@ -112,7 +133,15 @@ function HelloController($http, $compile, holydayService, $scope, $q, $resource)
         vm.tmpMonth['numberYear'] = originalDate.getFullYear();
 
       } else {
-        if (originalDate.getDay() == 0) {
+        if(vm.holidays.hasOwnProperty(dateToSearch)) {
+          vm.tmpDays.push({
+            'class': 'holiday',
+            'number': originalDate.getDate(),
+            'month': originalDate.getMonth() + 1,
+            'year': originalDate.getFullYear()
+          });
+        }
+        else if (originalDate.getDay() == 0) {
           vm.tmpDays.push({
             'class': 'weekend',
             'number': originalDate.getDate(),
@@ -149,13 +178,18 @@ function HelloController($http, $compile, holydayService, $scope, $q, $resource)
         }
 
       }
+      console.log($scope.holidays);
 
       originalDate.setDate(originalDate.getDate() + 1);
       console.log(originalDate);
     }
 
+      console.log("USER");
+      console.log(response);
+    });
+
     vm.showCalendar = true;
-    originalDate = originalDate;
+
 
   };
 

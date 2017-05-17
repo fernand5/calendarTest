@@ -7,13 +7,10 @@ angular
       array: '<',
       months: '@',
       holidays: '@'
-
     }
   });
 /** @ngInject */
 function CalendarController($http, $compile, holydayService, $resource) {
-
-
   var vm = this;
   vm.daysOfTheWeek = [{
     'name': 'Sun'
