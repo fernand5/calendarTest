@@ -1,2 +1,2 @@
 angular
-  .module('app', ['ui.router', 'ui.calendar', 'ui.bootstrap','ngResource']);
+  .module('app', ['ui.router', 'ui.bootstrap', 'ui.calendar', 'ngResource']);
